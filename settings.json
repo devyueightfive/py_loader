@@ -1,0 +1,12 @@
+{
+  "pathToDatabase": "/databases/last.h5",
+  "tradePairs": [
+    "btc_usd",
+    "eth_usd",
+    "eth_btc"
+  ],
+  "marketURLs": [
+    "binance.com",
+    "bitfinex.com"
+  ]
+}
