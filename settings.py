@@ -1,15 +1,27 @@
 import json
+
 from tables import IsDescription, Float32Col, Int32Col, StringCol
-from os.path import curdir, join
+
+settings = None
+
 
 # load settings from 'settings.json'
-linkToSettingsFile = open('settings.json', mode='r')
-settings = json.load(linkToSettingsFile)
+def loadSettings():
+    linkToSettingsFile = open('settings.json', mode='r')
+    global settings
+    settings = json.load(linkToSettingsFile)
+    linkToSettingsFile.close()
+
+
+def saveSettings(key, value):
+    global settings
+    settings[key] = value
+    linkToSettingsFile = open('settings.json', mode='w')
+    json.dump(settings, linkToSettingsFile)
+    linkToSettingsFile.close()
+
 
 # initialize settings
-
-# path to database
-pathToDatabase = join(curdir, settings['pathToDatabase'])
 
 
 # settings for database structure
@@ -21,6 +33,4 @@ class DescriptionForTradesTable(IsDescription):
     type = StringCol(3)
 
 
-# general market settings
-tradePairs = settings['tradePairs']
-marketURLs = settings['marketURLs']
+loadSettings()
