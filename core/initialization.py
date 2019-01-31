@@ -2,10 +2,10 @@ import os.path
 
 import tables
 
-from settings import settings, saveSettings, DescriptionForTradesTable
+from core.settings import settings, saveSettings, DescriptionForTradesTable
 
 
-def prepareDatabase():
+def initializeDatabase():
     fullPathToDatabase = settings['pathToDatabase']
     if not os.path.isfile(path=fullPathToDatabase):
         fullPathToDatabase = os.path.join(os.path.abspath('.'), settings['defaultPathToDatabase'])
@@ -21,13 +21,13 @@ def prepareDatabase():
                     table = hdf5Base.create_table(urlGroup, 'trades', DescriptionForTradesTable,
                                                   title="Trades")
                     table.close()
+        # end with
+
+        # save settings in settings.json
         saveSettings('pathToDatabase', fullPathToDatabase)
+    # return value  for tests
     return fullPathToDatabase
 
 
-def makePreparations():
-    prepareDatabase()
-
-
-if __name__ == '__main__':
-    makePreparations()
+def initialize():
+    initializeDatabase()

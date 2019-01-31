@@ -1,8 +1,8 @@
 import os.path
-import unittest
 import shutil
+import unittest
 
-import preparations
+from core.initialization import initializeDatabase, settings, saveSettings
 
 
 class databaseSuite(unittest.TestCase):
@@ -11,22 +11,23 @@ class databaseSuite(unittest.TestCase):
 
     def test_AbsenceOfPathToDatabaseInSettings(self):
         # force change 'pathToDatabase' to ''
-        preparations.saveSettings('pathToDatabase', '')
-        oldDatabase = preparations.settings['pathToDatabase']
+        saveSettings('pathToDatabase', '')
+        oldDatabase = settings['pathToDatabase']
         self.assertEqual(oldDatabase, '', 'Blank path is not created for "pathToDatabase".')
         # create database with default parameters
-        newDatabase = preparations.prepareDatabase()
-        self.assertEqual(os.path.join(os.path.abspath('.'), preparations.settings['defaultPathToDatabase']),
+        newDatabase = initializeDatabase()
+        self.assertEqual(os.path.join(os.path.abspath('.'), settings['defaultPathToDatabase']),
                          newDatabase, 'Database is created with no defaultPathToDatabase')
 
     def test_AbsenceOfDatabase(self):
         # force delete 'pathToDatabase'
-        oldDatabase = os.path.dirname(preparations.settings['pathToDatabase'])
-        shutil.rmtree(oldDatabase)
+        oldDatabase = os.path.dirname(settings['pathToDatabase'])
+        if os.path.exists(oldDatabase):
+            shutil.rmtree(oldDatabase)
         self.assertEqual(os.path.exists(oldDatabase), False, 'Database is not removed.')
         # create database with default parameters
-        newDatabase = preparations.prepareDatabase()
-        self.assertEqual(os.path.join(os.path.abspath('.'), preparations.settings['defaultPathToDatabase']),
+        newDatabase = initializeDatabase()
+        self.assertEqual(os.path.join(os.path.abspath('.'), settings['defaultPathToDatabase']),
                          newDatabase, 'Database is created with no defaultPathToDatabase')
 
 
