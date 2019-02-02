@@ -2,7 +2,7 @@ import os.path
 import shutil
 import unittest
 
-from core.initialization import initializeDatabase, settings, saveSettings
+from core.database.initialization import initializeDatabase, settings, saveSettings
 
 
 class databaseSuite(unittest.TestCase):
