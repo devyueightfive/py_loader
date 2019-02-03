@@ -1,12 +1,18 @@
 {
   "pathToDatabase": "/home/yuri/PycharmProjects/py_loader/databases/last.h5",
   "defaultPathToDatabase": "databases/last.h5",
-  "tradePairs": [
-    "btc_usd",
-    "eth_usd",
-    "eth_btc"
-  ],
-  "marketURLs": [
-    "binance.com"
+  "markets": [
+    {
+      "name": "binance.com",
+      "tradePairs": [
+        "btc_usdt",
+        "eth_usdt",
+        "eth_btc",
+        "zec_usdt",
+        "zec_btc"
+      ],
+      "fine": 0.02,
+      "websocketPoint": "wss://stream.binance.com:9443/ws/<trade_pair>@trade"
+    }
   ]
 }
