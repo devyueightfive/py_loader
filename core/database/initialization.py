@@ -49,3 +49,5 @@ def initialization():
             createDefaultDatabase()
         else:
             exit(0)
+    # return path to h5.database
+    return settings['pathToDatabase']
