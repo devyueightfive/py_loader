@@ -1,7 +1,7 @@
 from threading import Thread
 
 
-class MarketDataLoader(Thread):
+class MarketDataSaver(Thread):
     # Constructor
     def __init__(self, sharedQueue, h5File):
         super().__init__(daemon=True)
